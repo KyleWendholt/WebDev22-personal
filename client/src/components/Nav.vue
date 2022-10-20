@@ -1,9 +1,12 @@
-<script setup lang="ts">
-import { ref } from "vue";
+<script setup lang ="ts">
+import { reactive, ref } from "vue";
 import { RouterLink } from "vue-router";
 import LoginBadge from "./LoginBadge.vue";
+import session from "../stores/session";
 
 let isActive = ref(false);
+
+
 </script>
 
 <template>
@@ -33,7 +36,6 @@ let isActive = ref(false);
           <router-link to="/" class="navbar-item"> Home </router-link>
 
           <router-link class="navbar-item" to="/workouts"> Workouts </router-link>
-          <router-link class="navbar-item" to="/friends"> Friends </router-link>
           <router-link class="navbar-item" to="/profile"> Profile </router-link>
           <router-link class="navbar-item" to="/admin"> Admin </router-link>
 
