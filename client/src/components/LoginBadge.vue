@@ -17,7 +17,7 @@ let isActive = ref(false);
         </a>
       </div>
       <div class="dropdown-menu is-active" id="dropdown-menu" role="menu">
-        <div class="dropdown-content">
+        <div  @click="isActive = !isActive" class="dropdown-content">
           <a v-for="user in Users" class="dropdown-item" @click="login(user.username)"> {{user.firstname}} {{user.lastname}} </a>
         </div>
       </div>
