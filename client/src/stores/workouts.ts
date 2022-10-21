@@ -28,10 +28,8 @@ export function addWorkout(user:User,time:string,content:string){
 }
 
 export function removeWorkout(workout: Workout){
-  if(Workouts.includes(workout)){
-    Workouts[Workouts.indexOf(workout)] = Workouts[-1];
-    Workouts.pop;
-  }
+  Workouts[Workouts.indexOf(workout)] = Workouts[-1];
+  Workouts.pop();
 }
 
 export function usersWorkouts(user: User){
