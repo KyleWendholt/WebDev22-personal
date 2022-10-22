@@ -13,12 +13,12 @@ export class Workout{
 }
 
 const Workouts = reactive([
-  new Workout(Users[0],"4:13 10/7/22","Went for a jog around the park"),
-  new Workout(Users[0],"8:22 10/6/22","Rode my bike 7 miles"),
-  new Workout(Users[1],"7:32 10/7/22","Played basketball at the rec"),
-  new Workout(Users[2],"10:56 10/8/22","Played rugby in the park"),
-  new Workout(Users[2],"1:12 10/2/22","Threw a football with my friend"),
-  new Workout(Users[1],"2:43 10/1/22","Played golf with my children"),
+  new Workout(Users[0],"4:13 10/7/2022","Went for a jog around the park"),
+  new Workout(Users[0],"8:22 10/6/2022","Rode my bike 7 miles"),
+  new Workout(Users[1],"7:32 10/7/2022","Played basketball at the rec"),
+  new Workout(Users[2],"10:56 10/8/2022","Played rugby in the park"),
+  new Workout(Users[2],"1:12 10/2/2022","Threw a football with my friend"),
+  new Workout(Users[1],"2:43 10/1/2022","Played golf with my children"),
    
 ]
 );
@@ -28,8 +28,8 @@ export function addWorkout(user:User,time:string,content:string){
 }
 
 export function removeWorkout(workout: Workout){
-  Workouts[Workouts.indexOf(workout)] = Workouts[-1];
-  Workouts.pop();
+  Workouts.splice(Workouts.indexOf(workout),1);
+  return Workouts;
 }
 
 export function usersWorkouts(user: User){

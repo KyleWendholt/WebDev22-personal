@@ -1,17 +1,11 @@
 <template>
-  <div class="container is-max-desktop"><Exercises v-bind = "data" /></div>
+  <div class="container is-max-desktop"><Exercises v-for="workout in Workouts" :edit="false" :workout="workout" /></div>
 </template>
 
 <script setup lang="ts">
 import Workouts from "../stores/workouts";
-import Exercises from "../components/Exercises.vue";
+import Exercises from "../components/Exercise.vue";
 
-const data = {
-  workouts: Workouts,
-  edit: false
-}
 </script>
 
-<style scoped>
-  
-</style>
+<style scoped></style>
