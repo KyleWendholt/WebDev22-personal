@@ -7,9 +7,6 @@ let isActive = ref(false);
 
 <template>
   <div class="buttons navbar-item" v-if="session.user == null">
-    <a class="button is-primary">
-      <strong>Sign up</strong>
-    </a>
     <div class="dropdown" :class="{ 'is-active': isActive }">
       <div class="dropdown-trigger">
         <a class="button is-light" @click="isActive = !isActive"> Log in </a>
