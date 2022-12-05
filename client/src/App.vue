@@ -11,7 +11,7 @@
     <NavVue />
   </header>
 
-  <div class="container" v-if="session.user">
+  <div class="container">
     <RouterView />
   </div>
 

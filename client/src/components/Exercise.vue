@@ -5,28 +5,28 @@
         <figure class="image is-48x48">
           <img
             class="is-rounded"
-            :src="props.workout?.user.profilePic"
+            :src="user.profilePic"
             alt="Profile image"
           />
         </figure>
       </div>
       <div class="media-content">
         <p class="title is-4">
-          {{ props.workout?.user.firstname }} {{ props.workout?.user.lastname }}
+          {{ user.firstname }} {{ user.lastname }}
         </p>
-        <p class="subtitle is-6">@{{ props.workout?.user.username }}</p>
+        <p class="subtitle is-6">@{{ user.username }}</p>
       </div>
     </div>
 
     <div class="content">
-      {{ props.workout?.content }}
+      {{ props.exercise?.content }}
       <br />
-      {{ props.workout?.time }}
+      {{ props.exercise?.time }}
     </div>
     <footer v-if="edit" class="card-footer">
       <a
         @click="
-          removeWorkout(props.workout!);
+          deleteExercise(props.exercise?.id);
         "
         class="card-footer-item"
         >Delete</a
@@ -36,12 +36,15 @@
 </template>
 
 <script setup lang="ts">
-import { removeWorkout, Workout } from "../stores/workouts";
+import { deleteExercise, type Exercise } from "@/stores/exercises";
+import { getUser, User } from "@/stores/users";
+const props = defineProps<{
+  edit: boolean;
+  exercise: Exercise;
+}>();
+let user: User;
+getUser(props.exercise?.userID).then((x) => user = x);
 
-const props = defineProps({
-  workout: Workout,
-  edit: Boolean,
-});
 </script>
 
 <style scoped>

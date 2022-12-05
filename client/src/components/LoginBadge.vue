@@ -1,28 +1,13 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import session, { login, logout } from "../stores/session";
-import Users from "../stores/users";
-let isActive = ref(false);
+import session, { logout } from "../stores/session";
+
 </script>
 
 <template>
   <div class="buttons navbar-item" v-if="session.user == null">
-    <div class="dropdown" :class="{ 'is-active': isActive }">
-      <div class="dropdown-trigger">
-        <a class="button is-light" @click="isActive = !isActive"> Log in </a>
-      </div>
-      <div class="dropdown-menu is-active" id="dropdown-menu" role="menu">
-        <div @click="isActive = !isActive" class="dropdown-content">
-          <a
-            v-for="user in Users"
-            class="dropdown-item"
-            @click="login(user.username)"
-          >
-            {{ user.firstname }} {{ user.lastname }}
-          </a>
-        </div>
-      </div>
-    </div>
+    <RouterLink to="login" class="button is-primary">
+      <strong>Login</strong>
+    </RouterLink>
   </div>
   <div class="navbar-item" v-else>
     <div class="navbar-item">

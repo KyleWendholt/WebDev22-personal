@@ -8,17 +8,17 @@
           </figure>
           <div class="card-content">
             <h1 class="title">Username:</h1>
-            <h2 class="subtitle">@{{ session.user!.username }}</h2>
+            <h2 class="subtitle">@{{ session.user?.username }}</h2>
           </div>
         </div>
       </div>
     </header>
 
-    <div v-for="workout in Workouts">
+    <div v-for="exercise in exercises">
       <Exercise
-        v-if="workout.user == session.user"
+        v-if="(exercise.userID == session.user?.id)"
         :edit="false"
-        :workout="workout"
+        :exercise="exercise"
       />
     </div>
   </div>
@@ -26,8 +26,13 @@
 
 <script setup lang="ts">
 import session from "../stores/session";
-import Workouts from "../stores/workouts";
-import Exercise from "../components/Exercise.vue";
+import { reactive } from "vue";
+import { type Exercise, getExercises } from "@/stores/exercises";
+
+const exercises = reactive([] as Exercise[]);
+getExercises().then((x) => {
+  exercises.push(...x.list);
+});
 </script>
 
 <style scoped></style>

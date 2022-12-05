@@ -1,8 +1,8 @@
-<script setup lang = "ts">
+<script setup lang="ts">
 import { ref } from "vue";
 import { RouterLink } from "vue-router";
 import LoginBadge from "./LoginBadge.vue";
-import session from "../stores/session"
+import session from "../stores/session";
 
 let isActive = ref(false);
 </script>
@@ -37,7 +37,13 @@ let isActive = ref(false);
             Exercises
           </router-link>
           <router-link class="navbar-item" to="/profile"> Profile </router-link>
-          <router-link  v-if="session.user?.isAdmin" class="navbar-item" to="/admin"> Admin </router-link>
+          <router-link
+            v-if="session.user?.isAdmin"
+            class="navbar-item"
+            to="/admin"
+          >
+            Admin
+          </router-link>
         </div>
 
         <div class="navbar-end">

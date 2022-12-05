@@ -47,11 +47,11 @@
     >
       Add workout
     </div>
-    <div v-for="workout in Workouts">
+    <div v-for="exercise in exercises">
       <Exercises
-        v-if="workout.user == session.user"
+        v-if="(exercise.userID == session.user?.id)"
         :edit="true"
-        :workout="workout"
+        :exercise="exercise"
       />
     </div>
   </div>
@@ -59,9 +59,14 @@
 
 <script setup lang="ts">
 import Exercises from "../components/Exercise.vue";
-import Workouts, { addWorkout} from "../stores/workouts";
+import {type Exercise, getExercises} from "../stores/exercises";
 import session from "../stores/session";
-import { ref } from "vue";
+import { reactive, ref } from "vue";
+
+const exercises = reactive([] as Exercise[]);
+getExercises().then((x) => {
+  exercises.push(...x.list);
+});
 
 function prettyDate(date: Date) {
   return (
