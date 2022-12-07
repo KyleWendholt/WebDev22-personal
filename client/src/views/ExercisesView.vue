@@ -116,7 +116,7 @@ function prettyDate(date: Date) {
     date.getFullYear()
   );
 }
-const inputText = "";
+let inputText = ref("");
 let modalActive = ref(false);
 </script>
 
