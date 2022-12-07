@@ -1,13 +1,13 @@
 import { api } from "./session";
 
-export class User {
-  public id: string = "";
-  public firstname: string = "none";
-  public lastname: string = "none";
-  public username: string = "none";
-  public profilePic: string = "none";
-  public isAdmin: boolean = false;
-  public password: string = "none";
+export interface User {
+  _id: string;
+  firstname: string;
+  lastname: string;
+  username: string;
+  profilePic: string;
+  isAdmin: boolean;
+  password: string;
 }
 
 export interface ListEnvelope<T> {
@@ -18,21 +18,28 @@ export interface ListEnvelope<T> {
 }
 
 export function getUsers() {
-  return api<ListEnvelope<User>>("/api/users");
+  return api<ListEnvelope<User>>("users");
 }
 
 export function getUser(username: string){
-  return api<User>("/api/users/" + username);
+  return api<User>("users/" + username);
 }
 
-export function addUser(user: User) {
-  return api<User>("/api/users", user, "POST");
+export function addUser(user:{
+  firstname: string;
+  lastname: string;
+  username: string;
+  profilePic: string;
+  isAdmin: boolean;
+  password: string;
+}) {
+  return api<User>("users", user, "POST");
 }
 
 export function deleteUser(user: User) {
-  return api<{sucess: boolean}>("/api/users", user, "DELETE");
+  return api<{sucess: boolean}>("users", user, "DELETE");
 }
 
 export function updateUser(updatedUser: User, username: string) {
-  return api("/api/users/" + username, updatedUser, "PAtCH");
+  return api("users/" + username, updatedUser, "PATCH");
 }

@@ -13,26 +13,37 @@
         </div>
       </div>
     </header>
-
-    <div v-for="exercise in exercises">
-      <Exercise
-        v-if="(exercise.userID == session.user?.id)"
-        :edit="false"
-        :exercise="exercise"
-      />
-    </div>
+    <body
+      class="card-content box"
+      v-for="exercise in exercises.slice().reverse()"
+    >
+        <ExerciseComponent :exercise="exercise" />
+    </body>
   </div>
 </template>
 
 <script setup lang="ts">
+import ExerciseComponent from "../components/Exercise.vue";
 import session from "../stores/session";
 import { reactive } from "vue";
-import { type Exercise, getExercises } from "@/stores/exercises";
+import { type Exercise, userExercises } from "@/stores/exercises";
 
 const exercises = reactive([] as Exercise[]);
-getExercises().then((x) => {
-  exercises.push(...x.list);
-});
+if (session.user) {
+  userExercises(session.user._id).then((x) => {
+    if (x.list) {
+      const list = x.list;
+      console.log(list);
+      exercises.splice(0, exercises.length);
+      exercises.push(...list);
+    }
+  });
+}
 </script>
 
-<style scoped></style>
+<style scoped>
+
+header {
+  margin-top: 10px;
+}
+</style>

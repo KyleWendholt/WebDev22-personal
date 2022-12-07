@@ -1,5 +1,4 @@
 <script setup lang="ts">
-    import session from './stores/session'
     import { RouterView } from 'vue-router'
     import NavVue from './components/Nav.vue';
 

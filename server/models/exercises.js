@@ -11,25 +11,28 @@ async function collection() {
 async function getExercises() {
   const db = await collection();
   const data = await db.find().toArray();
-  return {total: data.length, exercises: data};
+  return {total: data.length, list: data};
 }
 
 async function getUserExercises(id) {
+  console.log("get users exercises "+ id);
   const db = await collection();
-  const data = await db.find({ _userId: new ObjectId(id) }).toArray();
-  return {total: data.length, exercises: data};
+  const data = await db.find({userID  : id}).toArray();
+  return {total: data.length, list: data};
 }
 
 async function addExercise(exercise) {
   const db = await collection();
+  console.log(exercise);
   await db.insertOne(exercise);
-  return true;
+  return exercise;
 }
 
 async function deleteExercise(id) {
   const db = await collection();
   const result = await db.deleteOne({ _id: new ObjectId(id) });
-  return result;
+  console.log(result);
+  return result.deletedCount === 1;
 }
 
 async function updateExercise(id, exercise) {

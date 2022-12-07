@@ -33,7 +33,7 @@ let isActive = ref(false);
         <div class="navbar-start">
           <router-link to="/" class="navbar-item"> Home </router-link>
 
-          <router-link class="navbar-item" to="/workouts">
+          <router-link class="navbar-item" to="/exercises">
             Exercises
           </router-link>
           <router-link class="navbar-item" to="/profile"> Profile </router-link>

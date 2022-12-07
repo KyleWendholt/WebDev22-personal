@@ -10,9 +10,10 @@ app.get("/", (req, res, next) => {
     .catch(next);
 });
 
-app.get("/:userid", (req, res, next) => {
+app
+.get("/:userid", (req, res, next) => {
     exercises
-      .getUserExercises(+req.params.userid)
+      .getUserExercises(req.params.userid)
       .then((exercises) => {
         if (exercises) {
           res.status(200).send(exercises);
@@ -23,6 +24,7 @@ app.get("/:userid", (req, res, next) => {
       .catch(next);
   });
   app.post("/", (req, res, next) => {
+    console.log(req.body);
     exercises
       .addExercise(req.body)
       .then((x) => res.status(200).send(x))
@@ -36,7 +38,7 @@ app.get("/:userid", (req, res, next) => {
   });
   app.delete("/:id", (req, res, next) => {
     exercises
-      .deleteExercise(+req.params.id)
+      .deleteExercise(req.params.id)
       .then((x) => res.status(200).send(x))
       .catch(next);
   });

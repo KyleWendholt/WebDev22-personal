@@ -1,6 +1,18 @@
 <script setup lang="ts">
-import { login } from "@/stores/session";
+import { validate } from "@/stores/session";
 import { ref } from "vue";
+import session from "@/stores/session";
+
+function login(username: string, password: string) {
+  console.log(username, password);
+  validate(username,password).then((x) => {
+    console.log(x);
+    if (x._id) {
+      session.user = x;
+      session.messages.push({ type: "success", text: "Logged in" });
+    }
+  });
+}
 
 const password = ref("");
 const username = ref("");
@@ -33,7 +45,7 @@ const username = ref("");
         </div>
       </div>
 
-      <button class="button is-primary">Sign in</button>
+      <button type= submit class="button is-primary" >Sign in</button>
     </form>
   </div>
 </template>

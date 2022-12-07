@@ -1,8 +1,8 @@
-import type { User } from "../stores/users";
-import { getUser } from "../stores/users";
 import myFetch from "@/services/myFetch";
+import type { User } from "./users";
 
 import { computed, reactive } from "vue";
+import { userExercises } from "./exercises";
 
 const session = reactive({
   user: null as User | null,
@@ -11,15 +11,8 @@ const session = reactive({
   messages: [] as Message[],
 });
 
-export function login(username: string,password:string) {
-  getUser(username).then((user) => {
-    if (user.password === password) {
-      session.user = user;
-    } else {
-      session.error = "Invalid password";
-    }
-  }
-  );
+export function validate(username:string, password:string) {
+  return api<User>(`users/validate/${username}/${password}`);
 }
 
 export function logout() {
@@ -31,14 +24,13 @@ export async function api<T>(url: string, data: any = null, method?: string) {
   setError(null);
   try {
     return await myFetch<T>(url, data, method);
-  } catch (error) {
-    setError(error as string);
+  } catch (error: any) {
+    setError(error.message ?? (error as string));
   } finally {
     session.loading--;
   }
   return {} as T;
 }
-
 
 export const isLoading = computed(() => !!session.loading);
 

@@ -15,7 +15,7 @@ import session, { logout } from "../stores/session";
         Welcome {{ session.user.firstname }} {{ session.user.lastname }}
       </div>
     </div>
-    <a class="button is-blue navbar-item" @click="logout()"> Log out </a>
+    <RouterLink to="login" class="button is-blue navbar-item" @click="logout()"> Log out </RouterLink>
   </div>
 </template>
 

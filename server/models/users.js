@@ -10,19 +10,26 @@ async function collection() {
 async function getUsers() {
   const db = await collection();
   const data = await db.find().toArray();
+  console.log(data);
+  return { total: data.length, list: data };
+}
+
+async function getUserByUsername(username) {
+  const db = await collection();
+  const data = await db.findOne({ username });
   return data;
 }
 
-async function getUser(username) {
+async function getUser(id) {
   const db = await collection();
-  const data = await db.find({ username: username }).toArray();
+  const data = await db.findOne({ _id: new ObjectId(id) });
   return data;
 }
 
 async function addUser(user) {
   const db = await collection();
   await db.insertOne(user);
-  return true;
+  return user;
 }
 
 async function deleteUser(id) {
@@ -31,10 +38,22 @@ async function deleteUser(id) {
   return true;
 }
 
+async function updateUser(id, user) {
+  const db = await collection();
+  const res = await db.updateOne({ _id: new ObjectId(id) }, { $set: user });
+  return res.modifiedCount === 1;
+}
+
 async function seed() {
   const db = await collection();
   await db.insertMany(data);
   return true;
+}
+
+async function validate(username, password) {
+  console.log(username, password);
+  const data = await getUserByUsername(username);
+  return data;
 }
 
 module.exports = {
@@ -44,4 +63,6 @@ module.exports = {
   addUser,
   deleteUser,
   seed,
+  validate,
+  updateUser,
 };
