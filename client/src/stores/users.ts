@@ -13,8 +13,10 @@ export interface User {
 export interface ListEnvelope<T> {
   list: T[];
   total: number;
-  skip: number;
-  limit: number;
+}
+
+export function autocompleteUsers(query: string) {
+  return api<ListEnvelope<User>>("users/autocomplete/" + query);
 }
 
 export function getUsers() {

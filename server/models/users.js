@@ -20,6 +20,15 @@ async function getUserByUsername(username) {
   return data;
 }
 
+async function autocompleteUsers(query) {
+  console.log("autocomplete users " + query);
+  const db = await collection();
+
+  let data = await db.find({$or:[ { username: { $regex: query, $options: 'i' }}, { firstname: { $regex: query, $options: 'i' }}, { lastname: { $regex: query, $options: 'i' }}]}).toArray();
+
+  return { total: data.length, list: data };
+}
+
 async function getUser(id) {
   const db = await collection();
   const data = await db.findOne({ _id: new ObjectId(id) });
@@ -65,4 +74,5 @@ module.exports = {
   seed,
   validate,
   updateUser,
+  autocompleteUsers,
 };

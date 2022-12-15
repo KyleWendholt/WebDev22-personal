@@ -2,7 +2,6 @@ const data = require("../data/exercises.json");
 const { connect } = require("./mongo");
 const { ObjectId } = require("mongodb");
 
-
 async function collection() {
   const client = await connect();
   return client.db("exerciseApp").collection("exercises");
@@ -11,14 +10,40 @@ async function collection() {
 async function getExercises() {
   const db = await collection();
   const data = await db.find().toArray();
-  return {total: data.length, list: data};
+  return { total: data.length, list: data };
+}
+
+async function autocompleteExercises(query) {
+  console.log("autocomplete exercises " + query);
+  const db = await collection();
+
+  // let data = await db
+  //   .aggregate([
+  //     {
+  //       $search: {
+  //         autocomplete: {
+  //           query: `${query}`,
+  //           path: "content",
+  //           fuzzy: {
+  //             maxEdits: 2,
+  //             prefixLength: 3,
+  //           },
+  //         },
+  //       },
+  //     },
+  //   ])
+  //   .toArray();
+
+  let data = await db.find({ content: { $regex: query, $options: "i" } }).toArray();
+
+  return { total: data.length, list: data };
 }
 
 async function getUserExercises(id) {
-  console.log("get users exercises "+ id);
+  console.log("get users exercises " + id);
   const db = await collection();
-  const data = await db.find({userID  : id}).toArray();
-  return {total: data.length, list: data};
+  const data = await db.find({ userID: id }).toArray();
+  return { total: data.length, list: data };
 }
 
 async function addExercise(exercise) {
@@ -43,7 +68,7 @@ async function updateExercise(id, exercise) {
     { $set: exercise },
     { returnDocument: "after" }
   );
-  
+
   return result.value;
 }
 
@@ -61,4 +86,5 @@ module.exports = {
   addExercise,
   deleteExercise,
   seed,
+  autocompleteExercises,
 };

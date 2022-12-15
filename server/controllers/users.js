@@ -17,6 +17,12 @@ app
       .then((x) => res.status(200).send(x))
       .catch(next);
   })
+  .get("/autocomplete/:query", (req, res, next) => {
+    users
+      .autocompleteUsers(req.params.query)
+      .then((x) => res.status(200).send(x))
+      .catch(next);
+  })
   .get("/:id", (req, res, next) => {
     users
       .getUser(req.params.id)

@@ -8,9 +8,13 @@ app.get("/", (req, res, next) => {
     .getExercises()
     .then((x) => res.status(200).send(x))
     .catch(next);
-});
-
-app
+})
+.get("/autocomplete/:query", (req, res, next) => {
+  exercises
+    .autocompleteExercises(req.params.query)
+    .then((x) => res.status(200).send(x))
+    .catch(next);
+})
 .get("/:userid", (req, res, next) => {
     exercises
       .getUserExercises(req.params.userid)
