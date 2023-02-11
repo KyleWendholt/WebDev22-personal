@@ -2,7 +2,12 @@
   <div class="container is-max-desktop">
     <div class="field has-addons">
       <div class="control">
-        <input class="input" type="text" v-model = "searchInput"  placeholder="Search for user" />
+        <input
+          class="input"
+          type="text"
+          v-model="searchInput"
+          placeholder="Search for user"
+        />
       </div>
       <div class="control">
         <a class="button is-info" @click="updateUser(searchInput)"> Search </a>
@@ -35,17 +40,10 @@
 import ExerciseComponent from "../components/Exercise.vue";
 import { reactive, ref } from "vue";
 import { type Exercise, getExercises, userExercises } from "@/stores/exercises";
-import {
-  autocompleteUsers,
-  type User,
-  getUser,
-  
-} from "@/stores/users";
+import { autocompleteUsers, type User, getUser } from "@/stores/users";
 import type { ListEnvelope } from "@/stores/users";
 
 let searchInput = ref("");
-
-
 
 function updateUser(searchInput: string) {
   getUser(searchInput).then((x) => {
